@@ -5,14 +5,17 @@ class Wrapper extends StatelessWidget {
     super.key,
     required this.child,
     this.bottomNavigationBar,
+    this.appBar,
   });
 
   final Widget child;
   final Widget? bottomNavigationBar;
+  final AppBar? appBar;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar,
       bottomNavigationBar: bottomNavigationBar,
       body: SafeArea(
         child: SingleChildScrollView(

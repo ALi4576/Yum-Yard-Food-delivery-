@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:yum_yard/auth/views/login.dart';
+import 'package:yum_yard/auth/auth.dart';
 import 'package:yum_yard/onboarding/onboarding.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -22,6 +22,38 @@ void main() {
             builder: (BuildContext context, GoRouterState state) {
               return const Login();
             },
+          ),
+          GoRoute(
+            path: Routes.signup,
+            builder: (BuildContext context, GoRouterState state) {
+              return const Signup();
+            },
+            routes: [
+              GoRoute(
+                path: Routes.otp,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const Otp(
+                    isSignup: true,
+                  );
+                },
+              ),
+            ],
+          ),
+          GoRoute(
+            path: Routes.forgotPassword,
+            builder: (BuildContext context, GoRouterState state) {
+              return const ForgotPassword();
+            },
+            routes: [
+              GoRoute(
+                path: Routes.otp,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const Otp(
+                    isSignup: false,
+                  );
+                },
+              ),
+            ],
           ),
         ],
       ),

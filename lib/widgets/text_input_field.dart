@@ -10,10 +10,12 @@ class TextInput extends TextField {
     String? hintText,
     TextInputType super.keyboardType = TextInputType.text,
     InputDecoration? decoration,
+    Widget? suffixIcon,
   }) : super(
           cursorColor: AppColors.secondary80,
           cursorHeight: 20,
           decoration: decoration ?? InputDecoration(
+            suffixIcon: suffixIcon,
             hintStyle: hintStyle,
             hintText: hintText,
             contentPadding: const EdgeInsets.symmetric(

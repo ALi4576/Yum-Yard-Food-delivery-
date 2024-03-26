@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:yum_yard/widgets/widgets.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class Signup extends StatelessWidget {
+  const Signup({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,11 @@ class Login extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.go('/${Routes.signup}/${Routes.otp}');
+                  },
                   child: Text(
-                    'Login',
+                    'Continue',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: AppColors.white,
                           fontWeight: FontWeight.bold,
@@ -43,7 +45,7 @@ class Login extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             DecoratedBox(
               decoration: BoxDecoration(
                 boxShadow: [
@@ -57,7 +59,7 @@ class Login extends StatelessWidget {
               ),
               child: SvgPicture.asset(
                 'assets/login_image.svg',
-                height: 220,
+                height: 200,
               ),
             ),
             const Spacer(),
@@ -69,7 +71,7 @@ class Login extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'Login and start ordering food now!',
+              'Create account to start ordering',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 30),
@@ -136,23 +138,39 @@ class Login extends StatelessWidget {
                     ),
               ),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 10),
             SizedBox(
               width: double.infinity,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: InkWell(
-                  onTap: () {
-                    context.go('/${Routes.forgotPassword}');
-                  },
-                  child: Text(
-                    'Forgot password?',
-                    textAlign: TextAlign.end,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.primary100,
-                        ),
+                child: Text(
+                  'Your password',
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+              child: TextInput(
+                onChanged: (value) {},
+                suffixIcon: InkWell(
+                  onTap: () {},
+                  child: const Icon(
+                    Icons.visibility,
+                    color: AppColors.gray80,
                   ),
                 ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppColors.gray80,
+                      fontWeight: FontWeight.w800,
+                    ),
+                hintText: 'Enter your password',
+                hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppColors.gray80,
+                    ),
               ),
             ),
             const SizedBox(height: 15),
@@ -160,18 +178,18 @@ class Login extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: InkWell(
                 onTap: () {
-                  context.go('/${Routes.signup}');
+                  context.go('/${Routes.login}');
                 },
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                    text: 'Don\'t have an account? ',
+                    text: 'Already have an account? ',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: AppColors.gray80,
                         ),
                     children: [
                       TextSpan(
-                        text: 'Sign up',
+                        text: 'Login',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: AppColors.secondary100,
                               fontWeight: FontWeight.bold,
@@ -183,6 +201,27 @@ class Login extends StatelessWidget {
               ),
             ),
             const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: 'By pressing “Continue”, you are agreeing to our ',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.gray80,
+                      ),
+                  children: [
+                    TextSpan(
+                      text: 'Terms and Conditions',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: AppColors.primary100,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
