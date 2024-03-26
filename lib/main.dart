@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:yum_yard/auth/views/login.dart';
 import 'package:yum_yard/onboarding/onboarding.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,10 +12,18 @@ void main() {
   final GoRouter router = GoRouter(
     routes: <RouteBase>[
       GoRoute(
-        path: '/',
+        path: Routes.home,
         builder: (BuildContext context, GoRouterState state) {
           return const Onboarding();
         },
+        routes: <RouteBase>[
+          GoRoute(
+            path: Routes.login,
+            builder: (BuildContext context, GoRouterState state) {
+              return const Login();
+            },
+          ),
+        ],
       ),
     ],
   );
@@ -32,6 +42,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: AppColors.background,
+    ));
+
     return MaterialApp.router(
       title: 'Yum Yard',
       theme: appTheme,
