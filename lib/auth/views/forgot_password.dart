@@ -47,7 +47,7 @@ class ForgotPassword extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ActionButton(
                   onPressed: () {
-                    context.go('/${Routes.forgotPassword}/${Routes.otp}');
+                    context.go(Routes.otpForgetPasswordRoute);
                   },
                   child: Text(
                     'Send Otp',

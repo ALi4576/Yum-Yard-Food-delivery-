@@ -52,6 +52,14 @@ void main() {
                     isSignup: false,
                   );
                 },
+                routes: [
+                  GoRoute(
+                    path: Routes.resetPassword,
+                    builder: (BuildContext context, GoRouterState state) {
+                      return const ResetPassword();
+                    },
+                  ),
+                ],
               ),
             ],
           ),

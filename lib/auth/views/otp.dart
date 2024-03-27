@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:yum_yard/widgets/widgets.dart';
@@ -47,7 +48,8 @@ class Otp extends StatelessWidget {
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: 'Please enter the 6-digit-OTP we\'ve sent to your phone number: ',
+                  text:
+                      'Please enter the 6-digit-OTP we\'ve sent to your phone number: ',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: AppColors.gray80,
                       ),
@@ -60,6 +62,42 @@ class Otp extends StatelessWidget {
                           ),
                     ),
                   ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              OtpTextField(
+                textStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                numberOfFields: 5,
+                fieldWidth: 60,
+                fieldHeight: 60,
+                contentPadding: const EdgeInsets.all(12),
+                borderColor: AppColors.primary100,
+                focusedBorderColor: AppColors.primary100,
+                disabledBorderColor: AppColors.gray80,
+                borderRadius: BorderRadius.circular(12),
+                filled: true,
+                fillColor: AppColors.primary40,
+                showFieldAsBox: true,
+                onCodeChanged: (String code) {},
+                onSubmit: (String verificationCode) {
+                  if (isSignup) {
+                    context.go('/${Routes.login}');
+                  } else {
+                    context.go(Routes.otpResetPasswordRoute);
+                  }
+                },
+              ),
+              const SizedBox(height: 5),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Resend OTP',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.primary100,
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
               ),
             ],

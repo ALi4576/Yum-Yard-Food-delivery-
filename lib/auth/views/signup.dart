@@ -28,7 +28,7 @@ class Signup extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ActionButton(
                   onPressed: () {
-                    context.go('/${Routes.signup}/${Routes.otp}');
+                    context.go(Routes.signupOtp);
                   },
                   child: Text(
                     'Continue',

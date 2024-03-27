@@ -16,7 +16,8 @@ dependencies:
   google_fonts: 6.2.1
   hooks_riverpod: 2.5.1
   go_router: 13.2.1
-  flutter_svg: 2.0.10+1
+  flutter_svg: ^2.0.10+1
+  flutter_otp_text_field: ^1.1.2+1
 
 dev_dependencies:
   flutter_test:
