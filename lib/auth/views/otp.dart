@@ -83,7 +83,10 @@ class Otp extends StatelessWidget {
                 onCodeChanged: (String code) {},
                 onSubmit: (String verificationCode) {
                   if (isSignup) {
-                    context.go('/${Routes.login}');
+                    Routes.clearAndNavigate(
+                      context,
+                      '/${Routes.searchLocation}',
+                    );
                   } else {
                     context.go(Routes.otpResetPasswordRoute);
                   }

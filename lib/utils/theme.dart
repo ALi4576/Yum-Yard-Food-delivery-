@@ -58,4 +58,17 @@ final ThemeData appTheme = ThemeData(
       color: AppColors.ambient,
     ),
   ),
+  dialogTheme: DialogTheme(
+    backgroundColor: AppColors.white,
+    titleTextStyle: GoogleFonts.inter(
+      fontSize: 20,
+      color: AppColors.ambient,
+    ),
+    contentTextStyle: GoogleFonts.inter(
+      fontSize: 16,
+      color: AppColors.ambient,
+    ),
+    actionsPadding: const EdgeInsets.symmetric(horizontal: 5),
+  ),
+  dialogBackgroundColor: AppColors.white,
 );

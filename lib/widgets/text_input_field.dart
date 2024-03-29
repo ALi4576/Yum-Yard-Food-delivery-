@@ -11,6 +11,7 @@ class TextInput extends TextField {
     TextInputType super.keyboardType = TextInputType.text,
     InputDecoration? decoration,
     Widget? suffixIcon,
+    Widget? prefixIcon,
   }) : super(
           cursorColor: AppColors.secondary80,
           cursorHeight: 20,
@@ -18,6 +19,7 @@ class TextInput extends TextField {
             suffixIcon: suffixIcon,
             hintStyle: hintStyle,
             hintText: hintText,
+            prefixIcon: prefixIcon,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 5,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yum_yard/auth/auth.dart';
+import 'package:yum_yard/location/location.dart';
 import 'package:yum_yard/onboarding/onboarding.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -60,6 +61,20 @@ void main() {
                     },
                   ),
                 ],
+              ),
+            ],
+          ),
+          GoRoute(
+            path: Routes.searchLocation,
+            builder: (BuildContext context, GoRouterState state) {
+              return const SearchLocation();
+            },
+            routes: [
+              GoRoute(
+                path: Routes.selectFromMap,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const ChooseFromMap();
+                },
               ),
             ],
           ),
