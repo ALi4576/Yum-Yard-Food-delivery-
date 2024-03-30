@@ -118,9 +118,12 @@ class SearchLocation extends StatelessWidget {
                           child: const Text('No, thanks'),
                         ),
                         TextButton(
-                          onPressed: () async{
+                          onPressed: () async {
                             Navigator.of(context).pop();
-                            await Permission.location.request();
+                            Permission.location.request().then((value) {
+                              Routes.clearAndNavigate(
+                                  context, '/${Routes.home}');
+                            });
                           },
                           child: const Text('OK'),
                         ),

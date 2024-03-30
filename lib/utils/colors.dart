@@ -20,7 +20,7 @@ class AppColors {
   static const ambient40 = Color(0xFFDDC0C2);
   static const ambient20 = Color(0xFFF8EBEC);
 
-  static const black = Color(0x00000000);
+  static const black = Color.fromARGB(255, 0, 0, 0);
   static const white = Color(0xFFFFFFFF);
   static const background = Color(0xF6F6F6F6);
 

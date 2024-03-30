@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yum_yard/auth/auth.dart';
+import 'package:yum_yard/home/home.dart';
 import 'package:yum_yard/location/location.dart';
 import 'package:yum_yard/onboarding/onboarding.dart';
 import 'package:yum_yard/utils/utils.dart';
@@ -13,7 +14,7 @@ void main() {
   final GoRouter router = GoRouter(
     routes: <RouteBase>[
       GoRoute(
-        path: Routes.home,
+        path: Routes.defaultPage,
         builder: (BuildContext context, GoRouterState state) {
           return const Onboarding();
         },
@@ -77,6 +78,12 @@ void main() {
                 },
               ),
             ],
+          ),
+          GoRoute(
+            path: Routes.home,
+            builder: (BuildContext context, GoRouterState state) {
+              return const Home();
+            },
           ),
         ],
       ),

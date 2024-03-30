@@ -6,11 +6,13 @@ class Wrapper extends StatelessWidget {
     required this.child,
     this.bottomNavigationBar,
     this.appBar,
+    this.safeArea = true,
   });
 
   final Widget child;
   final Widget? bottomNavigationBar;
   final AppBar? appBar;
+  final bool safeArea;
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +20,10 @@ class Wrapper extends StatelessWidget {
       appBar: appBar,
       bottomNavigationBar: bottomNavigationBar,
       body: SafeArea(
+        top: safeArea,
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: !safeArea ? 0 : 10),
             child: SizedBox(
               height: MediaQuery.of(context).size.height *
                   (bottomNavigationBar == null ? 0.86 : 0.8),

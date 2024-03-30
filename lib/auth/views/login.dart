@@ -28,7 +28,7 @@ class Login extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ActionButton(
                   onPressed: () {
-                    // Routes.clearAndNavigate(context, Routes.home);
+                    Routes.clearAndNavigate(context, '/${Routes.home}');
                   },
                   child: Text(
                     'Login',

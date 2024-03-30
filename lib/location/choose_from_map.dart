@@ -94,7 +94,9 @@ class ChooseFromMap extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  Routes.clearAndNavigate(context, '/${Routes.home}');
+                },
                 child: Text(
                   'Confirm location',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
