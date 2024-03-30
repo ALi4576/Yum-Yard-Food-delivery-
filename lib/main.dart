@@ -66,24 +66,26 @@ void main() {
             ],
           ),
           GoRoute(
-            path: Routes.searchLocation,
-            builder: (BuildContext context, GoRouterState state) {
-              return const SearchLocation();
-            },
-            routes: [
-              GoRoute(
-                path: Routes.selectFromMap,
-                builder: (BuildContext context, GoRouterState state) {
-                  return const ChooseFromMap();
-                },
-              ),
-            ],
-          ),
-          GoRoute(
             path: Routes.home,
             builder: (BuildContext context, GoRouterState state) {
               return const Home();
             },
+            routes: [
+              GoRoute(
+                path: Routes.searchLocation,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const SearchLocation();
+                },
+                routes: [
+                  GoRoute(
+                    path: Routes.selectFromMap,
+                    builder: (BuildContext context, GoRouterState state) {
+                      return const ChooseFromMap();
+                    },
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),

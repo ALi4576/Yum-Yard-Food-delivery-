@@ -85,7 +85,7 @@ class Otp extends StatelessWidget {
                   if (isSignup) {
                     Routes.clearAndNavigate(
                       context,
-                      '/${Routes.searchLocation}',
+                      '/${Routes.home}/${Routes.searchLocation}',
                     );
                   } else {
                     context.go(Routes.otpResetPasswordRoute);

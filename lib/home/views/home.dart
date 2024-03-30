@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:yum_yard/fake_db/fake_db.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:yum_yard/widgets/widgets.dart';
@@ -13,6 +13,41 @@ class Home extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Wrapper(
         safeArea: false,
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 0,
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          backgroundColor: AppColors.white,
+          selectedItemColor: AppColors.primary,
+          unselectedItemColor: AppColors.black.withOpacity(0.7),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home_outlined,
+              ),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.shopping_bag_outlined,
+              ),
+              label: 'Orders',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.notifications_none_outlined,
+              ),
+              label: 'Notifications',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person_outline,
+              ),
+              label: 'Me',
+            ),
+          ],
+        ),
         child: Column(
           children: [
             Container(
@@ -77,9 +112,64 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 15),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                children: [
+                  _Categories(),
+                  SizedBox(height: 20),
+                  Headings(
+                    title: 'Deals',
+                  ),
+                  SizedBox(height: 15),
+                  SizedBox(height: 20),
+                  Headings(
+                    title: 'Ready to Eat',
+                  ),
+                  SizedBox(height: 15),
+                ],
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _Categories extends StatelessWidget {
+  const _Categories();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Headings(
+          title: 'Browse Categories',
+        ),
+        const SizedBox(height: 15),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children:
+              (categories['categories'] ?? []).sublist(0, 4).map((category) {
+            return Column(
+              children: [
+                ImageTile(
+                  image: category['image'] as String? ?? '',
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  category['name'] as String? ?? '',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Colors.black,
+                      ),
+                ),
+              ],
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 }
@@ -92,37 +182,42 @@ class _CurrentLocation extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          height: 40,
-          width: MediaQuery.of(context).size.width * 0.8,
-          decoration: BoxDecoration(
-            color: AppColors.white.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Icon(
-                Icons.location_on_outlined,
-                color: AppColors.black.withOpacity(0.7),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: Text(
-                  '3891 Ranchview Dr. Richardson, California 62639',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColors.black.withOpacity(0.7),
-                      ),
+        InkWell(
+          onTap: () {
+            context.push('/${Routes.home}/${Routes.searchLocation}');
+          },
+          child: Container(
+            height: 40,
+            width: MediaQuery.of(context).size.width * 0.8,
+            decoration: BoxDecoration(
+              color: AppColors.white.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Icon(
+                  Icons.location_on_outlined,
+                  color: AppColors.black.withOpacity(0.7),
                 ),
-              ),
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 15,
-                color: AppColors.black.withOpacity(0.7),
-              ),
-            ],
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: Text(
+                    '3891 Ranchview Dr. Richardson, California 62639',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: AppColors.black.withOpacity(0.7),
+                        ),
+                  ),
+                ),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  size: 15,
+                  color: AppColors.black.withOpacity(0.7),
+                ),
+              ],
+            ),
           ),
         ),
         Container(

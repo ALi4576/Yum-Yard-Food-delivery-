@@ -51,7 +51,7 @@ class SearchLocation extends StatelessWidget {
                     minimumSize: const Size(double.infinity, 0),
                   ),
                   onPressed: () {
-                    context.go(Routes.selectFromMapDest);
+                    context.push(Routes.selectFromMapDest);
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
