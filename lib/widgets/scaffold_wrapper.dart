@@ -25,8 +25,10 @@ class Wrapper extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(top: !safeArea ? 0 : 10),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height *
-                  (bottomNavigationBar == null ? 0.86 : 0.8),
+              height: !safeArea
+                  ? null
+                  : MediaQuery.of(context).size.height *
+                      (bottomNavigationBar == null ? 0.86 : 0.8),
               child: child,
             ),
           ),

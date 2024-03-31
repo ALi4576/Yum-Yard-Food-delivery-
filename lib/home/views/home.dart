@@ -11,8 +11,105 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Wrapper(
-        safeArea: false,
+      child: Scaffold(
+        body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return [
+              SliverAppBar(
+                expandedHeight: 180,
+                toolbarHeight: 0,
+                pinned: true,
+                backgroundColor: AppColors.primary100,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Container(
+                    padding: const EdgeInsets.only(
+                      top: 60,
+                      left: 15,
+                      right: 15,
+                      bottom: 10,
+                    ),
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Color(0xfff3949a), Color(0xffeb4d57)],
+                        stops: [0.2, 0.8],
+                        begin: Alignment.bottomRight,
+                        end: Alignment.topLeft,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const _CurrentLocation(),
+                        const SizedBox(height: 15),
+                        Text(
+                          'Good ${DateTime.now().getTimeOfDay()}, ${user['name'].toString().split(' ').first} 👋',
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: AppColors.white,
+                                  ),
+                        ),
+                        Text(
+                          'Are you ready to place your order?',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                        const SizedBox(height: 15),
+                        TextInput(
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          decoration: InputDecoration(
+                            hintText:
+                                'Breakfast, Burger, Taco, Cappuccino, Coffee',
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: AppColors.gray60,
+                                ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 10,
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.search,
+                              color: AppColors.black,
+                            ),
+                            filled: true,
+                            fillColor: AppColors.white,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ];
+          },
+          body: const Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 15,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  _Categories(),
+                  SizedBox(height: 20),
+                  _Deals(),
+                  SizedBox(height: 20),
+                  _FeaturedProducts(),
+                ],
+              ),
+            ),
+          ),
+        
+        ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: 0,
           type: BottomNavigationBarType.fixed,
@@ -20,7 +117,7 @@ class Home extends StatelessWidget {
           showUnselectedLabels: false,
           backgroundColor: AppColors.white,
           selectedItemColor: AppColors.primary,
-          unselectedItemColor: AppColors.black.withOpacity(0.7),
+          unselectedItemColor: AppColors.ambient80,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(
@@ -48,92 +145,221 @@ class Home extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(
-          children: [
-            Container(
-              height: 240,
-              padding: const EdgeInsets.only(
-                top: 60,
-                left: 15,
-                right: 15,
-                bottom: 10,
-              ),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xfff3949a), Color(0xffeb4d57)],
-                  stops: [0.2, 0.8],
-                  begin: Alignment.bottomRight,
-                  end: Alignment.topLeft,
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const _CurrentLocation(),
-                  const SizedBox(height: 15),
-                  Text(
-                    'Good ${DateTime.now().getTimeOfDay()}, ${user['name'].toString().split(' ').first} 👋',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.white,
-                        ),
-                  ),
-                  Text(
-                    'Are you ready to place your order?',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  const SizedBox(height: 15),
-                  TextInput(
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    decoration: InputDecoration(
-                      hintText: 'Breakfast, Burger, Taco, Cappuccino, Coffee',
-                      hintStyle:
-                          Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: AppColors.gray60,
-                              ),
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 10,
-                      ),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: AppColors.black,
-                      ),
-                      filled: true,
-                      fillColor: AppColors.white,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 15),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                children: [
-                  _Categories(),
-                  SizedBox(height: 20),
-                  Headings(
-                    title: 'Deals',
-                  ),
-                  SizedBox(height: 15),
-                  SizedBox(height: 20),
-                  Headings(
-                    title: 'Ready to Eat',
-                  ),
-                  SizedBox(height: 15),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
+    );
+  }
+}
+
+class _FeaturedProducts extends StatelessWidget {
+  const _FeaturedProducts();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Headings(
+          title: 'Ready to Eat',
+        ),
+        const SizedBox(height: 15),
+        Column(
+          children: (featuredProducts).map(
+            (product) {
+              return product['featured'] == true
+                  ? Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ImageTile(
+                            height: 80,
+                            width: 100,
+                            image: product['image'] as String? ?? '',
+                          ),
+                          const SizedBox(width: 20),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                product['name'] as String? ?? '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: AppColors.black,
+                                    ),
+                              ),
+                              Text(
+                                product['category'] as String? ?? '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      color: AppColors.gray80,
+                                    ),
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Text(
+                                    (product['currency'] as Map)['symbol'] +
+                                            product['price'] as String? ??
+                                        '',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                          color: AppColors.green,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          Container(
+                            height: 30,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              color: AppColors.ambient20,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Icon(Icons.star, color: AppColors.yellow),
+                                Text(
+                                  product['rating'].toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                        color: AppColors.black,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container();
+            },
+          ).toList(),
+        ),
+      ],
+    );
+  }
+}
+
+class _Deals extends StatelessWidget {
+  const _Deals();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Headings(
+          title: 'Deals',
+        ),
+        const SizedBox(height: 15),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: (discountProducts).map((product) {
+              return product['featured'] == true
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 12),
+                      child: Stack(
+                        children: [
+                          Column(
+                            children: [
+                              ImageTile(
+                                image: product['image'] as String? ?? '',
+                                height: 80,
+                                width: 100,
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                product['name'] as String? ?? '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      color: AppColors.black,
+                                    ),
+                              ),
+                              SizedBox(
+                                width: 100,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      (product['currency'] as Map)['symbol'] +
+                                              product['price'] as String? ??
+                                          '',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            color: AppColors.ambient,
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                          ),
+                                    ),
+                                    Text(
+                                      (product['currency'] as Map)['symbol'] +
+                                          (product['discount'] as Map)['value']
+                                              .toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            color: AppColors.primary,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 5,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.primary,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Text(
+                                (product['discount'] as Map)['title']
+                                        as String? ??
+                                    '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      color: AppColors.white,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container();
+            }).toList(),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -144,30 +370,39 @@ class _Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Headings(
           title: 'Browse Categories',
         ),
         const SizedBox(height: 15),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children:
-              (categories['categories'] ?? []).sublist(0, 4).map((category) {
-            return Column(
-              children: [
-                ImageTile(
-                  image: category['image'] as String? ?? '',
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  category['name'] as String? ?? '',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.black,
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children:
+                (categories['categories'] ?? []).sublist(0, 4).map((category) {
+              return category['featured'] == true
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 12),
+                      child: Column(
+                        children: [
+                          ImageTile(
+                            image: category['image'] as String? ?? '',
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            category['name'] as String? ?? '',
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: AppColors.black,
+                                    ),
+                          ),
+                        ],
                       ),
-                ),
-              ],
-            );
-          }).toList(),
+                    )
+                  : Container();
+            }).toList(),
+          ),
         ),
       ],
     );
