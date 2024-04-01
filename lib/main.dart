@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yum_yard/auth/auth.dart';
+import 'package:yum_yard/food_category/food_category.dart';
 import 'package:yum_yard/home/home.dart';
 import 'package:yum_yard/location/location.dart';
 import 'package:yum_yard/onboarding/onboarding.dart';
@@ -84,6 +85,12 @@ void main() {
                     },
                   ),
                 ],
+              ),
+              GoRoute(
+                path: Routes.foodCategory,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const Category();
+                },
               ),
             ],
           ),

@@ -26,7 +26,9 @@ class Headings extends StatelessWidget {
         ),
         if (showAll)
           InkWell(
-            onTap: () {},
+            onTap: () {
+              onTap?.call();
+            },
             child: Row(
               children: [
                 Text(

@@ -108,7 +108,6 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-        
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: 0,
@@ -372,8 +371,11 @@ class _Categories extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Headings(
+        Headings(
           title: 'Browse Categories',
+          onTap: () {
+            context.push('/${Routes.home}/${Routes.foodCategory}');
+          },
         ),
         const SizedBox(height: 15),
         SingleChildScrollView(
@@ -384,21 +386,7 @@ class _Categories extends StatelessWidget {
               return category['featured'] == true
                   ? Padding(
                       padding: const EdgeInsets.only(right: 12),
-                      child: Column(
-                        children: [
-                          ImageTile(
-                            image: category['image'] as String? ?? '',
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            category['name'] as String? ?? '',
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: AppColors.black,
-                                    ),
-                          ),
-                        ],
-                      ),
+                      child: CategoryTile(category: category),
                     )
                   : Container();
             }).toList(),

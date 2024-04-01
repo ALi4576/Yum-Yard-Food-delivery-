@@ -1,4 +1,5 @@
 export 'action_button.dart';
+export 'category_tile.dart';
 export 'headings.dart';
 export 'image_tile.dart';
 export 'scaffold_wrapper.dart';
