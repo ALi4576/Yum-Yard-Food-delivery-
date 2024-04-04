@@ -30,11 +30,11 @@ class Signup extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ActionButton(
                   onPressed: () {
-                    if (ref.read(signUpProvider).phoneNumber == '' ||
-                        ref.read(signUpProvider).password == '' ||
-                        ref.read(signUpProvider).confirmPassword == '' ||
-                        ref.read(signUpProvider).password !=
-                            ref.read(signUpProvider).confirmPassword) {
+                    if (ref.read(providersList.signUpProvider).phoneNumber == '' ||
+                        ref.read(providersList.signUpProvider).password == '' ||
+                        ref.read(providersList.signUpProvider).confirmPassword == '' ||
+                        ref.read(providersList.signUpProvider).password !=
+                            ref.read(providersList.signUpProvider).confirmPassword) {
                       return;
                     }
                     context.go(Routes.signupOtp);
@@ -103,7 +103,7 @@ class Signup extends ConsumerWidget {
                 keyboardType: TextInputType.phone,
                 onChanged: (value) {
                   ref
-                      .read(signUpProvider.notifier)
+                      .read(providersList.signUpProvider.notifier)
                       .updateState(phoneNumber: value);
                 },
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -135,18 +135,18 @@ class Signup extends ConsumerWidget {
               child: TextInput(
                 onChanged: (value) {
                   ref
-                      .read(signUpProvider.notifier)
+                      .read(providersList.signUpProvider.notifier)
                       .updateState(password: value);
                 },
                 suffixIcon: InkWell(
                   onTap: () {
-                    ref.read(signUpProvider.notifier).updateState(
+                    ref.read(providersList.signUpProvider.notifier).updateState(
                           isPasswordVisible:
-                              !ref.read(signUpProvider).isPasswordVisible,
+                              !ref.read(providersList.signUpProvider).isPasswordVisible,
                         );
                   },
                   child: Icon(
-                    ref.watch(signUpProvider).isPasswordVisible
+                    ref.watch(providersList.signUpProvider).isPasswordVisible
                         ? Icons.visibility_off
                         : Icons.visibility,
                     color: AppColors.gray80,
@@ -156,7 +156,7 @@ class Signup extends ConsumerWidget {
                       color: AppColors.gray80,
                       fontWeight: FontWeight.w800,
                     ),
-                obscureText: !ref.watch(signUpProvider).isPasswordVisible,
+                obscureText: !ref.watch(providersList.signUpProvider).isPasswordVisible,
                 hintText: 'Enter your password',
                 hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.gray80,
@@ -182,19 +182,19 @@ class Signup extends ConsumerWidget {
               child: TextInput(
                 onChanged: (value) {
                   ref
-                      .read(signUpProvider.notifier)
+                      .read(providersList.signUpProvider.notifier)
                       .updateState(confirmPassword: value);
                 },
                 suffixIcon: InkWell(
                   onTap: () {
-                    ref.read(signUpProvider.notifier).updateState(
+                    ref.read(providersList.signUpProvider.notifier).updateState(
                           isConfirmPasswordVisible: !ref
-                              .read(signUpProvider)
+                              .read(providersList.signUpProvider)
                               .isConfirmPasswordVisible,
                         );
                   },
                   child: Icon(
-                    ref.watch(signUpProvider).isConfirmPasswordVisible
+                    ref.watch(providersList.signUpProvider).isConfirmPasswordVisible
                         ? Icons.visibility_off
                         : Icons.visibility,
                     color: AppColors.gray80,
@@ -205,7 +205,7 @@ class Signup extends ConsumerWidget {
                       fontWeight: FontWeight.w800,
                     ),
                 obscureText:
-                    !ref.watch(signUpProvider).isConfirmPasswordVisible,
+                    !ref.watch(providersList.signUpProvider).isConfirmPasswordVisible,
                 hintText: 'Confirm your password',
                 hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.gray80,

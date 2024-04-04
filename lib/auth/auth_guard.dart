@@ -10,7 +10,7 @@ class AuthGuard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isAuthenticated =  ref.watch(authProvider).isLoggedIn;
+    final isAuthenticated =  ref.watch(providersList.authProvider).isLoggedIn;
 
     if (isAuthenticated) {
       return builder(context);

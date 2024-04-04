@@ -30,8 +30,8 @@ class Login extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ActionButton(
                   onPressed: () {
-                    ref.read(authProvider.notifier).login().then((value) {
-                      if (ref.read(authProvider).isLoggedIn) {
+                    ref.read(providersList.authProvider.notifier).login().then((value) {
+                      if (ref.read(providersList.authProvider).isLoggedIn) {
                         Routes.clearAndNavigate(context, '/${Routes.home}');
                       }
                     });
@@ -100,7 +100,7 @@ class Login extends ConsumerWidget {
                 keyboardType: TextInputType.phone,
                 onChanged: (value) {
                   ref
-                      .read(authProvider.notifier)
+                      .read(providersList.authProvider.notifier)
                       .updateState(phoneNumber: value);
                 },
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -131,23 +131,23 @@ class Login extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
               child: TextInput(
                 onChanged: (value) {
-                  ref.read(authProvider.notifier).updateState(password: value);
+                  ref.read(providersList.authProvider.notifier).updateState(password: value);
                 },
                 suffixIcon: InkWell(
                   onTap: () {
-                    ref.read(authProvider.notifier).updateState(
+                    ref.read(providersList.authProvider.notifier).updateState(
                           isPasswordVisible:
-                              !ref.read(authProvider).isPasswordVisible,
+                              !ref.read(providersList.authProvider).isPasswordVisible,
                         );
                   },
                   child: Icon(
-                    ref.watch(authProvider).isPasswordVisible
+                    ref.watch(providersList.authProvider).isPasswordVisible
                         ? Icons.visibility_off
                         : Icons.visibility,
                     color: AppColors.gray80,
                   ),
                 ),
-                obscureText: !ref.watch(authProvider).isPasswordVisible,
+                obscureText: !ref.watch(providersList.authProvider).isPasswordVisible,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.gray80,
                       fontWeight: FontWeight.w800,
