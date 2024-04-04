@@ -19,6 +19,7 @@ dependencies:
   flutter_svg: 2.0.10+1
   flutter_otp_text_field: 1.1.2+1
   permission_handler: 11.3.1
+  equatable:
   # mapbox_maps_flutter: ^1.0.0
 
 dev_dependencies:

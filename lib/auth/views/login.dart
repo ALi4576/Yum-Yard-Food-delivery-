@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:yum_yard/main.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:yum_yard/widgets/widgets.dart';
 
-class Login extends StatelessWidget {
+class Login extends ConsumerWidget {
   const Login({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -28,7 +30,11 @@ class Login extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ActionButton(
                   onPressed: () {
-                    Routes.clearAndNavigate(context, '/${Routes.home}');
+                    ref.read(authProvider.notifier).login().then((value) {
+                      if (ref.read(authProvider).isLoggedIn) {
+                        Routes.clearAndNavigate(context, '/${Routes.home}');
+                      }
+                    });
                   },
                   child: Text(
                     'Login',
@@ -92,7 +98,11 @@ class Login extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
               child: TextInput(
                 keyboardType: TextInputType.phone,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  ref
+                      .read(authProvider.notifier)
+                      .updateState(phoneNumber: value);
+                },
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.gray80,
                       fontWeight: FontWeight.w800,
@@ -120,14 +130,24 @@ class Login extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
               child: TextInput(
-                onChanged: (value) {},
+                onChanged: (value) {
+                  ref.read(authProvider.notifier).updateState(password: value);
+                },
                 suffixIcon: InkWell(
-                  onTap: () {},
-                  child: const Icon(
-                    Icons.visibility,
+                  onTap: () {
+                    ref.read(authProvider.notifier).updateState(
+                          isPasswordVisible:
+                              !ref.read(authProvider).isPasswordVisible,
+                        );
+                  },
+                  child: Icon(
+                    ref.watch(authProvider).isPasswordVisible
+                        ? Icons.visibility_off
+                        : Icons.visibility,
                     color: AppColors.gray80,
                   ),
                 ),
+                obscureText: !ref.watch(authProvider).isPasswordVisible,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.gray80,
                       fontWeight: FontWeight.w800,

@@ -40,4 +40,3 @@ class Category extends StatelessWidget {
     );
   }
 }
-

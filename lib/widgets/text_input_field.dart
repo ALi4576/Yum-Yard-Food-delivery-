@@ -6,6 +6,7 @@ class TextInput extends TextField {
     super.key,
     super.style,
     super.onChanged,
+    super.obscureText,
     TextStyle? hintStyle,
     String? hintText,
     TextInputType super.keyboardType = TextInputType.text,
@@ -15,39 +16,40 @@ class TextInput extends TextField {
   }) : super(
           cursorColor: AppColors.secondary80,
           cursorHeight: 20,
-          decoration: decoration ?? InputDecoration(
-            suffixIcon: suffixIcon,
-            hintStyle: hintStyle,
-            hintText: hintText,
-            prefixIcon: prefixIcon,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 5,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(
-                color: AppColors.gray,
+          decoration: decoration ??
+              InputDecoration(
+                suffixIcon: suffixIcon,
+                hintStyle: hintStyle,
+                hintText: hintText,
+                prefixIcon: prefixIcon,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(
+                    color: AppColors.gray,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(
+                    color: AppColors.secondary80,
+                  ),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(
+                    color: AppColors.gray,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(
+                    color: AppColors.gray80,
+                  ),
+                ),
               ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(
-                color: AppColors.secondary80,
-              ),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(
-                color: AppColors.gray,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(
-                color: AppColors.gray80,
-              ),
-            ),
-          ),
         );
 }

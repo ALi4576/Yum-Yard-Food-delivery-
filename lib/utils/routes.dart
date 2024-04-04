@@ -15,7 +15,8 @@ class Routes {
   static const String home = 'home';
   static const String searchLocation = 'search-location';
   static const String selectFromMap = 'select-from-map';
-  static const String selectFromMapDest = '/$home/$searchLocation/$selectFromMap';
+  static const String selectFromMapDest =
+      '/$home/$searchLocation/$selectFromMap';
   static const String foodCategory = 'food-category';
 
   static void clearAndNavigate(BuildContext context, String path) {

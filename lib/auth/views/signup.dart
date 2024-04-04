@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:yum_yard/main.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:yum_yard/widgets/widgets.dart';
 
-class Signup extends StatelessWidget {
+class Signup extends ConsumerWidget {
   const Signup({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -28,6 +30,13 @@ class Signup extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ActionButton(
                   onPressed: () {
+                    if (ref.read(signUpProvider).phoneNumber == '' ||
+                        ref.read(signUpProvider).password == '' ||
+                        ref.read(signUpProvider).confirmPassword == '' ||
+                        ref.read(signUpProvider).password !=
+                            ref.read(signUpProvider).confirmPassword) {
+                      return;
+                    }
                     context.go(Routes.signupOtp);
                   },
                   child: Text(
@@ -92,7 +101,11 @@ class Signup extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
               child: TextInput(
                 keyboardType: TextInputType.phone,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  ref
+                      .read(signUpProvider.notifier)
+                      .updateState(phoneNumber: value);
+                },
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.gray80,
                       fontWeight: FontWeight.w800,
@@ -120,11 +133,22 @@ class Signup extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
               child: TextInput(
-                onChanged: (value) {},
+                onChanged: (value) {
+                  ref
+                      .read(signUpProvider.notifier)
+                      .updateState(password: value);
+                },
                 suffixIcon: InkWell(
-                  onTap: () {},
-                  child: const Icon(
-                    Icons.visibility,
+                  onTap: () {
+                    ref.read(signUpProvider.notifier).updateState(
+                          isPasswordVisible:
+                              !ref.read(signUpProvider).isPasswordVisible,
+                        );
+                  },
+                  child: Icon(
+                    ref.watch(signUpProvider).isPasswordVisible
+                        ? Icons.visibility_off
+                        : Icons.visibility,
                     color: AppColors.gray80,
                   ),
                 ),
@@ -132,6 +156,7 @@ class Signup extends StatelessWidget {
                       color: AppColors.gray80,
                       fontWeight: FontWeight.w800,
                     ),
+                obscureText: !ref.watch(signUpProvider).isPasswordVisible,
                 hintText: 'Enter your password',
                 hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.gray80,
@@ -144,7 +169,7 @@ class Signup extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
-                  'Your password',
+                  'Confirm password',
                   textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.bold,
@@ -155,11 +180,23 @@ class Signup extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
               child: TextInput(
-                onChanged: (value) {},
+                onChanged: (value) {
+                  ref
+                      .read(signUpProvider.notifier)
+                      .updateState(confirmPassword: value);
+                },
                 suffixIcon: InkWell(
-                  onTap: () {},
-                  child: const Icon(
-                    Icons.visibility,
+                  onTap: () {
+                    ref.read(signUpProvider.notifier).updateState(
+                          isConfirmPasswordVisible: !ref
+                              .read(signUpProvider)
+                              .isConfirmPasswordVisible,
+                        );
+                  },
+                  child: Icon(
+                    ref.watch(signUpProvider).isConfirmPasswordVisible
+                        ? Icons.visibility_off
+                        : Icons.visibility,
                     color: AppColors.gray80,
                   ),
                 ),
@@ -167,7 +204,9 @@ class Signup extends StatelessWidget {
                       color: AppColors.gray80,
                       fontWeight: FontWeight.w800,
                     ),
-                hintText: 'Enter your password',
+                obscureText:
+                    !ref.watch(signUpProvider).isConfirmPasswordVisible,
+                hintText: 'Confirm your password',
                 hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.gray80,
                     ),

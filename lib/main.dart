@@ -6,10 +6,19 @@ import 'package:yum_yard/food_category/food_category.dart';
 import 'package:yum_yard/home/home.dart';
 import 'package:yum_yard/location/location.dart';
 import 'package:yum_yard/onboarding/onboarding.dart';
+import 'package:yum_yard/providers/providers.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // ProviderScope.containerOf(context)
+
+final authProvider = StateNotifierProvider<AuthProvider, AuthState>(
+  (ref) => AuthProvider(ref),
+);
+
+final signUpProvider = StateNotifierProvider<SignupProvider, SignupState>(
+  (ref) => SignupProvider(ref),
+);
 
 void main() {
   final GoRouter router = GoRouter(
@@ -69,19 +78,25 @@ void main() {
           GoRoute(
             path: Routes.home,
             builder: (BuildContext context, GoRouterState state) {
-              return const Home();
+              return AuthGuard(
+                builder: (context) => const Home(),
+              );
             },
             routes: [
               GoRoute(
                 path: Routes.searchLocation,
                 builder: (BuildContext context, GoRouterState state) {
-                  return const SearchLocation();
+                  return  AuthGuard(
+                    builder: (context) => const SearchLocation(),
+                  );
                 },
                 routes: [
                   GoRoute(
                     path: Routes.selectFromMap,
                     builder: (BuildContext context, GoRouterState state) {
-                      return const ChooseFromMap();
+                      return AuthGuard(
+                        builder: (context) => const ChooseFromMap(),
+                      );
                     },
                   ),
                 ],
