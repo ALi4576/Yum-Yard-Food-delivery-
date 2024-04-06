@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:yum_yard/providers/providers.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:yum_yard/widgets/widgets.dart';
 
-class ResetPassword extends StatelessWidget {
+class ResetPassword extends ConsumerWidget {
   const ResetPassword({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -40,7 +42,14 @@ class ResetPassword extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: ActionButton(
                     onPressed: () {
-                      context.go('/${Routes.login}');
+                      ref
+                          .read(PL.authProvider.notifier)
+                          .resetPassword()
+                          .then((value) {
+                        if (value) {
+                          context.go('/${Routes.login}');
+                        }
+                      });
                     },
                     child: Text(
                       'Confirm',
@@ -79,11 +88,23 @@ class ResetPassword extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextInput(
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    ref.read(PL.authProvider.notifier).updateState(
+                          newPassword: value,
+                        );
+                  },
+                  obscureText: !ref.watch(PL.authProvider).isNewPasswordVisible,
                   suffixIcon: InkWell(
-                    onTap: () {},
-                    child: const Icon(
-                      Icons.visibility,
+                    onTap: () {
+                      ref.read(PL.authProvider.notifier).updateState(
+                            isNewPasswordVisible:
+                                !ref.read(PL.authProvider).isNewPasswordVisible,
+                          );
+                    },
+                    child: Icon(
+                      ref.watch(PL.authProvider).isNewPasswordVisible
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                       color: AppColors.gray80,
                     ),
                   ),
@@ -115,11 +136,25 @@ class ResetPassword extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextInput(
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    ref.read(PL.authProvider.notifier).updateState(
+                          confirmPassword: value,
+                        );
+                  },
+                  obscureText:
+                      !ref.watch(PL.authProvider).isConfirmPasswordVisible,
                   suffixIcon: InkWell(
-                    onTap: () {},
-                    child: const Icon(
-                      Icons.visibility,
+                    onTap: () {
+                      ref.read(PL.authProvider.notifier).updateState(
+                            isConfirmPasswordVisible: !ref
+                                .read(PL.authProvider)
+                                .isConfirmPasswordVisible,
+                          );
+                    },
+                    child: Icon(
+                      ref.watch(PL.authProvider).isConfirmPasswordVisible
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                       color: AppColors.gray80,
                     ),
                   ),

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:yum_yard/providers/providers_list.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:yum_yard/widgets/widgets.dart';
 
-class ForgotPassword extends StatelessWidget {
+class ForgotPassword extends ConsumerWidget {
   const ForgotPassword({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -47,7 +49,14 @@ class ForgotPassword extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ActionButton(
                   onPressed: () {
-                    context.go(Routes.otpForgetPasswordRoute);
+                    ref
+                        .watch(PL.authProvider.notifier)
+                        .forgotPasswordPhone()
+                        .then((value) {
+                      if (value) {
+                        context.go(Routes.otpForgetPasswordRoute);
+                      }
+                    });
                   },
                   child: Text(
                     'Send Otp',
@@ -81,7 +90,11 @@ class ForgotPassword extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
               child: TextInput(
                 keyboardType: TextInputType.phone,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  ref
+                      .read(PL.authProvider.notifier)
+                      .updateState(forgotPasswordPhone: value);
+                },
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.gray80,
                       fontWeight: FontWeight.w800,

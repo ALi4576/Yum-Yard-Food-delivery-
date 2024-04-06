@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:yum_yard/main.dart';
+import 'package:yum_yard/providers/providers_list.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:yum_yard/widgets/widgets.dart';
 
@@ -30,8 +30,8 @@ class Login extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ActionButton(
                   onPressed: () {
-                    ref.read(providersList.authProvider.notifier).login().then((value) {
-                      if (ref.read(providersList.authProvider).isLoggedIn) {
+                    ref.read(PL.authProvider.notifier).login().then((value) {
+                      if (ref.read(PL.authProvider).isLoggedIn) {
                         Routes.clearAndNavigate(context, '/${Routes.home}');
                       }
                     });
@@ -100,7 +100,7 @@ class Login extends ConsumerWidget {
                 keyboardType: TextInputType.phone,
                 onChanged: (value) {
                   ref
-                      .read(providersList.authProvider.notifier)
+                      .read(PL.authProvider.notifier)
                       .updateState(phoneNumber: value);
                 },
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -131,23 +131,23 @@ class Login extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
               child: TextInput(
                 onChanged: (value) {
-                  ref.read(providersList.authProvider.notifier).updateState(password: value);
+                  ref.read(PL.authProvider.notifier).updateState(password: value);
                 },
                 suffixIcon: InkWell(
                   onTap: () {
-                    ref.read(providersList.authProvider.notifier).updateState(
+                    ref.read(PL.authProvider.notifier).updateState(
                           isPasswordVisible:
-                              !ref.read(providersList.authProvider).isPasswordVisible,
+                              !ref.read(PL.authProvider).isPasswordVisible,
                         );
                   },
                   child: Icon(
-                    ref.watch(providersList.authProvider).isPasswordVisible
+                    ref.watch(PL.authProvider).isPasswordVisible
                         ? Icons.visibility_off
                         : Icons.visibility,
                     color: AppColors.gray80,
                   ),
                 ),
-                obscureText: !ref.watch(providersList.authProvider).isPasswordVisible,
+                obscureText: !ref.watch(PL.authProvider).isPasswordVisible,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.gray80,
                       fontWeight: FontWeight.w800,

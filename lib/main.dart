@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:yum_yard/providers/providers_list.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // ProviderScope.containerOf(context)
-
-ProvidersList providersList = ProvidersList();
 
 void main() {
   runApp(

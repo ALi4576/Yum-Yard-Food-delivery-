@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:yum_yard/main.dart';
+import 'package:yum_yard/providers/providers_list.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:yum_yard/widgets/widgets.dart';
 
@@ -30,11 +30,11 @@ class Signup extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ActionButton(
                   onPressed: () {
-                    if (ref.read(providersList.signUpProvider).phoneNumber == '' ||
-                        ref.read(providersList.signUpProvider).password == '' ||
-                        ref.read(providersList.signUpProvider).confirmPassword == '' ||
-                        ref.read(providersList.signUpProvider).password !=
-                            ref.read(providersList.signUpProvider).confirmPassword) {
+                    if (ref.read(PL.signUpProvider).phoneNumber == '' ||
+                        ref.read(PL.signUpProvider).password == '' ||
+                        ref.read(PL.signUpProvider).confirmPassword == '' ||
+                        ref.read(PL.signUpProvider).password !=
+                            ref.read(PL.signUpProvider).confirmPassword) {
                       return;
                     }
                     context.go(Routes.signupOtp);
@@ -103,7 +103,7 @@ class Signup extends ConsumerWidget {
                 keyboardType: TextInputType.phone,
                 onChanged: (value) {
                   ref
-                      .read(providersList.signUpProvider.notifier)
+                      .read(PL.signUpProvider.notifier)
                       .updateState(phoneNumber: value);
                 },
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -135,18 +135,18 @@ class Signup extends ConsumerWidget {
               child: TextInput(
                 onChanged: (value) {
                   ref
-                      .read(providersList.signUpProvider.notifier)
+                      .read(PL.signUpProvider.notifier)
                       .updateState(password: value);
                 },
                 suffixIcon: InkWell(
                   onTap: () {
-                    ref.read(providersList.signUpProvider.notifier).updateState(
+                    ref.read(PL.signUpProvider.notifier).updateState(
                           isPasswordVisible:
-                              !ref.read(providersList.signUpProvider).isPasswordVisible,
+                              !ref.read(PL.signUpProvider).isPasswordVisible,
                         );
                   },
                   child: Icon(
-                    ref.watch(providersList.signUpProvider).isPasswordVisible
+                    ref.watch(PL.signUpProvider).isPasswordVisible
                         ? Icons.visibility_off
                         : Icons.visibility,
                     color: AppColors.gray80,
@@ -156,7 +156,7 @@ class Signup extends ConsumerWidget {
                       color: AppColors.gray80,
                       fontWeight: FontWeight.w800,
                     ),
-                obscureText: !ref.watch(providersList.signUpProvider).isPasswordVisible,
+                obscureText: !ref.watch(PL.signUpProvider).isPasswordVisible,
                 hintText: 'Enter your password',
                 hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.gray80,
@@ -182,19 +182,19 @@ class Signup extends ConsumerWidget {
               child: TextInput(
                 onChanged: (value) {
                   ref
-                      .read(providersList.signUpProvider.notifier)
+                      .read(PL.signUpProvider.notifier)
                       .updateState(confirmPassword: value);
                 },
                 suffixIcon: InkWell(
                   onTap: () {
-                    ref.read(providersList.signUpProvider.notifier).updateState(
+                    ref.read(PL.signUpProvider.notifier).updateState(
                           isConfirmPasswordVisible: !ref
-                              .read(providersList.signUpProvider)
+                              .read(PL.signUpProvider)
                               .isConfirmPasswordVisible,
                         );
                   },
                   child: Icon(
-                    ref.watch(providersList.signUpProvider).isConfirmPasswordVisible
+                    ref.watch(PL.signUpProvider).isConfirmPasswordVisible
                         ? Icons.visibility_off
                         : Icons.visibility,
                     color: AppColors.gray80,
@@ -205,7 +205,7 @@ class Signup extends ConsumerWidget {
                       fontWeight: FontWeight.w800,
                     ),
                 obscureText:
-                    !ref.watch(providersList.signUpProvider).isConfirmPasswordVisible,
+                    !ref.watch(PL.signUpProvider).isConfirmPasswordVisible,
                 hintText: 'Confirm your password',
                 hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.gray80,

@@ -17,12 +17,23 @@ class AuthProvider extends StateNotifier<AuthState> {
     String? password,
     bool? isPasswordVisible,
     bool? isLoggedIn,
+    String? forgotPasswordPhone,
+    String? newPassword,
+    String? confirmPassword,
+    bool? isNewPasswordVisible,
+    bool? isConfirmPasswordVisible,
   }) {
     state = state.copyWith(
       phoneNumber: phoneNumber ?? state.phoneNumber,
       password: password ?? state.password,
       isPasswordVisible: isPasswordVisible ?? state.isPasswordVisible,
       isLoggedIn: isLoggedIn ?? state.isLoggedIn,
+      forgotPasswordPhone: forgotPasswordPhone ?? state.forgotPasswordPhone,
+      newPassword: newPassword ?? state.newPassword,
+      confirmPassword: confirmPassword ?? state.confirmPassword,
+      isNewPasswordVisible: isNewPasswordVisible ?? state.isNewPasswordVisible,
+      isConfirmPasswordVisible:
+          isConfirmPasswordVisible ?? state.isConfirmPasswordVisible,
     );
   }
 
@@ -32,6 +43,14 @@ class AuthProvider extends StateNotifier<AuthState> {
     }
     updateState(isLoggedIn: true);
   }
+
+  Future<bool> forgotPasswordPhone() async {
+    return state.forgotPasswordPhone != '';
+  }
+
+  Future<bool> resetPassword() async {
+    return state.newPassword == state.confirmPassword;
+  }
 }
 
 class AuthState extends Equatable {
@@ -40,6 +59,11 @@ class AuthState extends Equatable {
     this.password = '',
     this.isPasswordVisible = false,
     this.isLoggedIn = false,
+    this.forgotPasswordPhone = '',
+    this.newPassword = '',
+    this.confirmPassword = '',
+    this.isNewPasswordVisible = false,
+    this.isConfirmPasswordVisible = false,
   });
 
   AuthState copyWith({
@@ -47,12 +71,23 @@ class AuthState extends Equatable {
     String? password,
     bool? isPasswordVisible,
     bool? isLoggedIn,
+    String? forgotPasswordPhone,
+    String? newPassword,
+    String? confirmPassword,
+    bool? isNewPasswordVisible,
+    bool? isConfirmPasswordVisible,
   }) {
     return AuthState._(
       phoneNumber: phoneNumber ?? this.phoneNumber,
       password: password ?? this.password,
       isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
       isLoggedIn: isLoggedIn ?? this.isLoggedIn,
+      forgotPasswordPhone: forgotPasswordPhone ?? this.forgotPasswordPhone,
+      newPassword: newPassword ?? this.newPassword,
+      confirmPassword: confirmPassword ?? this.confirmPassword,
+      isNewPasswordVisible: isNewPasswordVisible ?? this.isNewPasswordVisible,
+      isConfirmPasswordVisible:
+          isConfirmPasswordVisible ?? this.isConfirmPasswordVisible,
     );
   }
 
@@ -60,6 +95,11 @@ class AuthState extends Equatable {
   final String password;
   final bool isPasswordVisible;
   final bool isLoggedIn;
+  final String forgotPasswordPhone;
+  final String newPassword;
+  final String confirmPassword;
+  final bool isNewPasswordVisible;
+  final bool isConfirmPasswordVisible;
 
   @override
   List<Object?> get props => [
@@ -67,5 +107,10 @@ class AuthState extends Equatable {
         password,
         isPasswordVisible,
         isLoggedIn,
+        forgotPasswordPhone,
+        newPassword,
+        confirmPassword,
+        isNewPasswordVisible,
+        isConfirmPasswordVisible,
       ];
 }

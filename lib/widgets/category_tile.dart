@@ -13,9 +13,12 @@ class CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         ImageTile(
           image: category['image'] as String? ?? '',
+          height: 70,
+          width: 90,
         ),
         const SizedBox(height: 5),
         Text(

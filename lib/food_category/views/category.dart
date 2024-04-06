@@ -26,7 +26,6 @@ class Category extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           child: Wrap(
-            alignment: WrapAlignment.spaceEvenly,
             spacing: 12,
             runSpacing: 20,
             children: (categories['categories'] ?? [])

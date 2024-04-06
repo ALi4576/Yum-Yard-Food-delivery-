@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:yum_yard/providers/providers.dart';
 import 'package:yum_yard/utils/utils.dart';
 import 'package:yum_yard/widgets/widgets.dart';
 
-class Otp extends StatelessWidget {
+class Otp extends ConsumerWidget {
   const Otp({super.key, required this.isSignup});
 
   final bool isSignup;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(PL.otpProvider.notifier).getOtp();
+    });
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -49,7 +55,7 @@ class Otp extends StatelessWidget {
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   text:
-                      'Please enter the 6-digit-OTP we\'ve sent to your phone number: ',
+                      'Please enter the 5-digit-OTP we\'ve sent to your phone number: ',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: AppColors.gray80,
                       ),
@@ -66,6 +72,7 @@ class Otp extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               OtpTextField(
+                autoFocus: true,
                 textStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -80,21 +87,29 @@ class Otp extends StatelessWidget {
                 filled: true,
                 fillColor: AppColors.primary40,
                 showFieldAsBox: true,
-                onCodeChanged: (String code) {},
                 onSubmit: (String verificationCode) {
-                  if (isSignup) {
-                    Routes.clearAndNavigate(
-                      context,
-                      '/${Routes.home}/${Routes.searchLocation}',
-                    );
-                  } else {
-                    context.go(Routes.otpResetPasswordRoute);
-                  }
+                  ref
+                      .read(PL.otpProvider.notifier)
+                      .updateState(confirmOtp: verificationCode);
+                  ref.watch(PL.otpProvider.notifier).verifyOtp().then((value) {
+                    if (value) {
+                      if (isSignup) {
+                        Routes.clearAndNavigate(
+                          context,
+                          '/${Routes.home}/${Routes.searchLocation}',
+                        );
+                      } else {
+                        context.go(Routes.otpResetPasswordRoute);
+                      }
+                    }
+                  });
                 },
               ),
               const SizedBox(height: 5),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  ref.read(PL.otpProvider.notifier).getOtp();
+                },
                 child: Text(
                   'Resend OTP',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
