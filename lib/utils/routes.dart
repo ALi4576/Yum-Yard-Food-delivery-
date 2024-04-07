@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yum_yard/auth/auth.dart';
 import 'package:yum_yard/food_category/food_category.dart';
-import 'package:yum_yard/home/views/views.dart';
+import 'package:yum_yard/dashboard/views/views.dart';
 import 'package:yum_yard/location/location.dart';
 import 'package:yum_yard/onboarding/onboarding.dart';
 
@@ -89,7 +89,7 @@ class Routes {
             path: Routes.home,
             builder: (BuildContext context, GoRouterState state) {
               return AuthGuard(
-                builder: (context) => const Home(),
+                builder: (context) => const Dashboard(),
               );
             },
             routes: [

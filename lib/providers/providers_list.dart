@@ -14,4 +14,9 @@ class PL {
   static final otpProvider = StateNotifierProvider<OtpProvider, OtpState>(
     (ref) => OtpProvider(ref),
   );
+
+  static final bottomBarProvider =
+      StateNotifierProvider<BottomBarProvider, int>(
+    (ref) => BottomBarProvider(ref),
+  );
 }

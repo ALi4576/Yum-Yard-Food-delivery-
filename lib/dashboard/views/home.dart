@@ -9,140 +9,95 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        body: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                expandedHeight: 180,
-                toolbarHeight: 0,
-                pinned: true,
-                backgroundColor: AppColors.primary100,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Container(
-                    padding: const EdgeInsets.only(
-                      top: 60,
-                      left: 15,
-                      right: 15,
-                      bottom: 10,
-                    ),
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0xfff3949a), Color(0xffeb4d57)],
-                        stops: [0.2, 0.8],
-                        begin: Alignment.bottomRight,
-                        end: Alignment.topLeft,
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const _CurrentLocation(),
-                        const SizedBox(height: 15),
-                        Text(
-                          'Good ${DateTime.now().getTimeOfDay()}, ${user['name'].toString().split(' ').first} 👋',
-                          style:
-                              Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: AppColors.white,
-                                  ),
-                        ),
-                        Text(
-                          'Are you ready to place your order?',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                        const SizedBox(height: 15),
-                        TextInput(
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          decoration: InputDecoration(
-                            hintText:
-                                'Breakfast, Burger, Taco, Cappuccino, Coffee',
-                            hintStyle: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color: AppColors.gray60,
-                                ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 10,
-                            ),
-                            prefixIcon: const Icon(
-                              Icons.search,
-                              color: AppColors.black,
-                            ),
-                            filled: true,
-                            fillColor: AppColors.white,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return [
+          SliverAppBar(
+            expandedHeight: 180,
+            toolbarHeight: 0,
+            pinned: true,
+            backgroundColor: AppColors.primary100,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                padding: const EdgeInsets.only(
+                  top: 60,
+                  left: 15,
+                  right: 15,
+                  bottom: 10,
+                ),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xfff3949a), Color(0xffeb4d57)],
+                    stops: [0.2, 0.8],
+                    begin: Alignment.bottomRight,
+                    end: Alignment.topLeft,
                   ),
                 ),
-              ),
-            ];
-          },
-          body: const Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 15,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: 10),
-                  _Categories(),
-                  SizedBox(height: 20),
-                  _Deals(),
-                  SizedBox(height: 20),
-                  _FeaturedProducts(),
-                ],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const _CurrentLocation(),
+                    const SizedBox(height: 15),
+                    Text(
+                      'Good ${DateTime.now().getTimeOfDay()}, ${user['name'].toString().split(' ').first} 👋',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: AppColors.white,
+                          ),
+                    ),
+                    Text(
+                      'Are you ready to place your order?',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    const SizedBox(height: 15),
+                    TextInput(
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      decoration: InputDecoration(
+                        hintText: 'Breakfast, Burger, Taco, Cappuccino, Coffee',
+                        hintStyle:
+                            Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: AppColors.gray60,
+                                ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 10,
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.search,
+                          color: AppColors.black,
+                        ),
+                        filled: true,
+                        fillColor: AppColors.white,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
+        ];
+      },
+      body: const Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 15,
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0,
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          backgroundColor: AppColors.white,
-          selectedItemColor: AppColors.primary,
-          unselectedItemColor: AppColors.ambient80,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_outlined,
-              ),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.shopping_bag_outlined,
-              ),
-              label: 'Orders',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.notifications_none_outlined,
-              ),
-              label: 'Notifications',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_outline,
-              ),
-              label: 'Me',
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 10),
+              _Categories(),
+              SizedBox(height: 20),
+              _Deals(),
+              SizedBox(height: 20),
+              _FeaturedProducts(),
+            ],
+          ),
         ),
       ),
     );
