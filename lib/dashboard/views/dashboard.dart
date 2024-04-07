@@ -22,10 +22,19 @@ class Dashboard extends ConsumerWidget {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
+          selectedLabelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: AppColors.ambient100,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+          unselectedLabelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: AppColors.ambient60,
+                fontSize: 12,
+              ),
           currentIndex: ref.watch(PL.bottomBarProvider),
           type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
           backgroundColor: AppColors.white,
           selectedItemColor: AppColors.primary,
           unselectedItemColor: AppColors.ambient80,
