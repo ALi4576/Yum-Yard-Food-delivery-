@@ -19,4 +19,9 @@ class PL {
       StateNotifierProvider<BottomBarProvider, int>(
     (ref) => BottomBarProvider(ref),
   );
+
+  static final ordersProvider =
+      StateNotifierProvider<OrdersProvider, OrdersState>(
+    (ref) => OrdersProvider(ref),
+  );
 }

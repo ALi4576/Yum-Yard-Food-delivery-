@@ -16,7 +16,7 @@ class Dashboard extends ConsumerWidget {
           index: ref.watch(PL.bottomBarProvider),
           children: const [
             Home(),
-            SizedBox(),
+            Orders(),
             SizedBox(),
             SizedBox(),
           ],
