@@ -161,3 +161,131 @@ const featuredProducts = [
     'featured': true,
   },
 ];
+
+const placedOrders = [
+  {
+    'id': 2,
+    'name': 'Cornetto',
+    'image':
+        'https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2022/06/LINK-TRAFFIC-18.jpg',
+    'price': '5.00',
+    'currency': {
+      'type': 'USD',
+      'symbol': '\$',
+    },
+    'quantity': 2,
+    'category': 'Dessert',
+    'eta': '20 min',
+    'status': 'PickedUp',
+  },
+  {
+    'id': 3,
+    'name': 'Chicken Pizza',
+    'image':
+        'https://upload.wikimedia.org/wikipedia/commons/9/91/Pizza-3007395.jpg',
+    'price': '15.00',
+    'currency': {
+      'type': 'USD',
+      'symbol': '\$',
+    },
+    'category': 'Pizza',
+    'quantity': 4,
+    'eta': '0 min',
+    'status': 'Delivered',
+  },
+];
+
+const orderHistory = [
+  {
+    'order_id': 1,
+    'date': '2022-10-10',
+    'total': '20.00',
+    'currency': {
+      'type': 'USD',
+      'symbol': '\$',
+    },
+    'items': [
+      {
+        'id': 2,
+        'name': 'Cornetto',
+        'image':
+            'https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2022/06/LINK-TRAFFIC-18.jpg',
+        'price': '5.00',
+        'quantity': 2,
+        'category': 'Dessert',
+        'status': 'Delivered',
+      },
+      {
+        'id': 3,
+        'name': 'Chicken Pizza',
+        'image':
+            'https://upload.wikimedia.org/wikipedia/commons/9/91/Pizza-3007395.jpg',
+        'price': '15.00',
+        'category': 'Pizza',
+        'quantity': 4,
+        'status': 'Cancelled',
+      },
+    ],
+  },
+  {
+    'order_id': 1,
+    'date': '2022-10-10',
+    'total': '20.00',
+    'currency': {
+      'type': 'USD',
+      'symbol': '\$',
+    },
+    'items': [
+      {
+        'id': 2,
+        'name': 'Cornetto',
+        'image':
+            'https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2022/06/LINK-TRAFFIC-18.jpg',
+        'price': '5.00',
+        'quantity': 2,
+        'category': 'Dessert',
+        'status': 'Delivered',
+      },
+      {
+        'id': 3,
+        'name': 'Chicken Pizza',
+        'image':
+            'https://upload.wikimedia.org/wikipedia/commons/9/91/Pizza-3007395.jpg',
+        'price': '15.00',
+        'category': 'Pizza',
+        'quantity': 4,
+        'status': 'Cancelled',
+      },
+    ],
+  },
+];
+
+const cart = [
+  {
+    'total': '20.00',
+    'currency': {
+      'type': 'USD',
+      'symbol': '\$',
+    },
+    'items': [
+      {
+        'id': 2,
+        'name': 'Cornetto',
+        'image':
+            'https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2022/06/LINK-TRAFFIC-18.jpg',
+        'price': '5.00',
+        'quantity': 2,
+        'category': 'Dessert',
+      },
+      {
+        'id': 3,
+        'name': 'Chicken Pizza',
+        'image':
+            'https://upload.wikimedia.org/wikipedia/commons/9/91/Pizza-3007395.jpg',
+        'price': '15.00',
+        'category': 'Pizza',
+        'quantity': 4,
+      },
+    ],
+  },
+];
