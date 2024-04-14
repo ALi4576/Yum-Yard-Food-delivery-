@@ -111,8 +111,45 @@ class PlacedOrders extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       child: Column(
         children: placedOrders.map((order) {
-          return _OrderItem(
-            order: order,
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    'Order ID: ${order['order_id']}',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: AppColors.green,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                  const Spacer(),
+                  InkWell(
+                    onTap: () {},
+                    child: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: AppColors.red,
+                      size: 18,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              order['items'] is List
+                  ? Column(
+                      children: (order['items'] as List).map((item) {
+                        return _OrderItem(
+                          order: item as Map<String, dynamic>,
+                          currency: order['currency'] as Map<String, dynamic>,
+                        );
+                      }).toList(),
+                    )
+                  : const SizedBox(),
+              const Divider(
+                color: AppColors.ambient40,
+                thickness: 1,
+              ),
+            ],
           );
         }).toList(),
       ),
@@ -123,9 +160,11 @@ class PlacedOrders extends ConsumerWidget {
 class _OrderItem extends StatelessWidget {
   const _OrderItem({
     required this.order,
+    required this.currency,
   });
 
   final Map<String, dynamic> order;
+  final Map<String, dynamic> currency;
 
   @override
   Widget build(BuildContext context) {
@@ -157,9 +196,7 @@ class _OrderItem extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                (order['currency'] as Map)['symbol'] + order['price']
-                        as String? ??
-                    '',
+                currency['symbol'] + order['price'] as String? ?? '',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.green,
                     ),
